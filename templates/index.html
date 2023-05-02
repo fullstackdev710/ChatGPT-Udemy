@@ -2,72 +2,93 @@
 <html>
 
 <head>
-   <title>OpenAI GPT Chat</title>
-   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-   <style>
+   <meta charset="UTF-8">
+   <title>Code Bug Fixer</title>
+   <style type="text/css">
       body {
-         background-color: #35372D;
-         color: #ededf2;
+         font-family: Arial sans-serif;
+         background-color: #f6f7f9;
+      }
+
+      .header {
+         background-color: #3b5998;
+         color: #ffffff;
+         padding: 15px;
+         text-align: center;
+      }
+
+      .header h1 {
+         margin: 0;
+         font-size: 28px;
+         font-weight: bold;
       }
 
       .container {
-         margin-top: 20px;
+         display: flex;
+         justify-content: space-between;
+         padding: 15px;
       }
 
-      #chat {
-         height: 400px;
-         overflow-y: scroll;
-         background-color: #444654;
+      .left-column,
+      .right-column {
+         width: 49%;
+         padding: 15px;
       }
 
-      .list-group-item {
+      textarea {
+         width: 100%;
+         height: 200px;
+         font-size: 16px;
+         padding: 10px;
+         margin-bottom: 15px;
+         border: 1px solid #cccccc;
          border-radius: 5px;
-         background-color: #444654;
+         resize: none;
       }
 
-      . submit {
-         background-color: #21232e;
-         color: white;
-         border-radius: 5px;
+      .fixed-code,
+      .explanation {
+         background-color: #e9ebee;
+         color: #3b5998;
+         font-weight: bold;
       }
 
-      .input-group input {
-         background-color: #444654;
-         color: #ededf2;
+      .submit-button {
+         background-color: #3b5998;
+         color: #ffffff;
+         font-size: 18px;
+         font-weight: bold;
+         padding: 10px 20px;
          border: none;
+         border-radius: 5px;
+         margin-top: 15px;
+         cursor: pointer;
       }
+
+      .submit-button:hover {
+         background-color: #4b76be;
       }
    </style>
 </head>
 
 <body>
-   <div class="container">
-      <h2>OpenAI GPT Chat</h2>
-      <hr>
-      <div class="panel panel-default">
-         <div class="panel-heading">Chat Messages</div>
-         <div class="panel-body" id="chat">
-            <ul class="list-group">
-            </ul>
+   <div class="header">
+      <h1>Code Bug Fixer</h1>
+   </div>
+   <form action="/" method="post">
+      <button class="submit-button" type="submit">Code Fix</button>
+      <div class="container">
+         <div class="left-column">
+            <textarea name="code" placeholder="Enter Code"></textarea>
+            <textarea name="error" placeholder="Enter Error"></textarea>
+         </div>
+         <div class="right-column">
+            <textarea class="fixed-code" name="fixed-code" placeholder="Fixed Code" readonly>{{ fixed_code }}</textarea>
+            <textarea class="explanation" name="explanation" placeholder="Explanation"
+               readonly>{{ explanation }}</textarea>
          </div>
       </div>
-      <div class="input-group">
-         <input type="text" id="userInput" class="form-control">
-         <span class="input-group-btn">
-            <button class="btn btn-default" id="submit">Submit</button>
-         </span>
-      </div>
-   </div>
-   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-   <script>
-      $("#submit").click(function () {
-         var userInput = $("#userInput").val();
-         $.get("/get?msg=" + userInput, function (data) {
-            $("#chat").append("<li class='list-group-item'><b>You:</b> " + userInput + "</li>");
-            $("#chat").append("<li class='list-group-item'><b>OpenAI:</b> " + data + "</li>");
-         });
-      });
-   </script>
+   </form>
 </body>
 
 </html>
